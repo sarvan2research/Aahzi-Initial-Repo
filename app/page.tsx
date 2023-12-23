@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
   return (
-    <div className="grid place-items-center p-10 min-h-screen bg-gradient-to-r from-indigo-400 to-cyan-400">
-      <div className="flex justify-center items-center">
+    <div className="p-10 min-h-screen bg-gradient-to-r from-indigo-400 to-cyan-400 max-sm:flex max-sm:flex-col-reverse">
+      <div className="grid place-items-center grid-flow-col max-md:grid-flow-row max-sm:grid-flow-row">
         <Image
           src="/old-approach.jpg"
           alt="old-approach-method"
-          className="max-w-sm rounded-lg shadow-2xl"
+          className="max-w-sm rounded-lg shadow-2xl max-sm:w-6/12 max-md:w-6/12"
           width={500}
           height={500}
         />
@@ -35,7 +35,7 @@ export default function Home() {
         <Image
           src="/new-approach.jpg"
           alt="new-approach-method"
-          className="max-w-sm rounded-lg shadow-2xl"
+          className="max-w-sm rounded-lg shadow-2xl max-sm:w-6/12 max-md:w-6/12"
           width={500}
           height={500}
         />

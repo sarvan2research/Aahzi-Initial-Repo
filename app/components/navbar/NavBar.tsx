@@ -73,16 +73,16 @@ const Navbar = () => {
         <div className="p-4">
           <div aria-labelledby="dropdownDefaultButton">
             <Link
+              href={"/"}
+              className="block hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
+            >
+              Aahzi
+            </Link>
+            <Link
               href={"/form"}
               className="block hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
             >
               Form
-            </Link>
-            <Link
-              href={"/codet"}
-              className="block hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
-            >
-              College List
             </Link>
           </div>
         </div>

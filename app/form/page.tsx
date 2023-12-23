@@ -6,6 +6,7 @@ import formSchema from "../api/schema/schema";
 import Input from "../components/formInputs/Input";
 import { FormData } from "../components/formInputs/Input";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const ChatBotForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -104,11 +105,22 @@ const ChatBotForm = () => {
   };
 
   return (
-    <div className="mt-10 grid place-items-center gap-4">
-      <p className="text-5xl font-bold sm:text-3xl">Form</p>
+    <div className="mt-10 grid place-items-center grid-flow-col gap-4 max-md:grid-flow-row">
+          <div className="grid place-items-center">
+          <h2 className="text-5xl font-bold text-blue-400">Welcome to Aahzi</h2>
+
+            <Image
+            src="/chatbot-welocme.jpg"
+            alt="chatbot-welcome"
+            className="max-w-sm rounded-lg max-sm:w-6/12 max-md:w-6/12"
+            width={500}
+            height={500}
+                    />
+          </div>
       {/* <div className="flex flex-col w-full"><div className="divider divide-warning"></div></div> */}
 
-      <form className="flex justify-center" onSubmit={onSubmit}>
+      <form className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-10 rounded-xl" onSubmit={onSubmit}>
+      <p className="text-5xl font-bold max-sm:text-2xl max-md:text-2xl text-white">Form</p>
         <div className="space-y-6">
           <div>
             <Input
@@ -140,7 +152,7 @@ const ChatBotForm = () => {
             )}
           </div>
 
-          <div className="grid grid-flow-col gap-4">
+          <div className="grid grid-flow-col gap-4 max-md:grid-flow-row max-sm:grid-flow-row">
             <div>
               <select
                 name="course"
@@ -242,15 +254,19 @@ const ChatBotForm = () => {
             <p className="text-base leading-6 text-gray-900">
               Your Calculated Cutoff is :{" "}
             </p>
-            <p className="ml-4 text-green-500">{cutoffMarks}</p>
+            <p className="ml-4 text-white">{cutoffMarks}</p>
           </div>
-          <div className="btn btn-info text-white w-full text-lg">
+          <div className="btn btn-accent text-white w-full text-lg">
             <button title="submit" type="submit">
               Submit
             </button>
           </div>
         </div>
       </form>
+
+      <div>
+        <h2 className="text-2xl font-bold leading-loose">Here you can check your Cutoff <br/>and Top Ranklist of colleges<br/> will update soon...</h2>
+      </div>
     </div>
   );
 };
