@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 "use client";
 import { useState, FormEvent, useEffect, ChangeEvent } from "react";
 import { ZodError } from "zod";
@@ -98,29 +97,42 @@ const ChatBotForm = () => {
 
       userDetail(data);
 
-      router.push('/data')
+      router.push("/data");
     } catch (error) {
       if (error) throw new Error("Error in catch", error);
     }
   };
 
   return (
-    <div className="mt-10 grid place-items-center grid-flow-col gap-4 max-md:grid-flow-row">
-          <div className="grid place-items-center">
-          <h2 className="text-5xl font-bold text-blue-400">Welcome to Aahzi</h2>
+    <div className="mt-6 grid place-items-center grid-flow-col gap-4 max-md:grid-flow-row">
+      <div className="grid place-items-center">
+        <h2 className="text-5xl font-bold text-blue-400">Welcome to Aahzi</h2>
 
-            <Image
-            src="/chatbot-welocme.jpg"
-            alt="chatbot-welcome"
-            className="max-w-sm rounded-lg max-sm:w-6/12 max-md:w-6/12"
-            width={500}
-            height={500}
-                    />
-          </div>
+        <Image
+          src="/chatbot-welocme.jpg"
+          alt="chatbot-welcome"
+          title="chatbot-welcome"
+          className="max-w-sm rounded-lg max-sm:w-6/12 max-md:w-6/12"
+          width={500}
+          height={500}
+        />
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold leading-loose hidden max-md:block max-md:text-lg tracking-widest">
+          Here you can check your Cutoff <br />
+          and Top Ranklist of colleges
+          <br /> will update soon...
+        </h2>
+      </div>
       {/* <div className="flex flex-col w-full"><div className="divider divide-warning"></div></div> */}
 
-      <form className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-10 rounded-xl" onSubmit={onSubmit}>
-      <p className="text-5xl font-bold max-sm:text-2xl max-md:text-2xl text-white">Form</p>
+      <form
+        className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-10 rounded-xl"
+        onSubmit={onSubmit}
+      >
+        <p className="text-5xl font-bold max-sm:text-2xl max-md:text-2xl text-white">
+          Form
+        </p>
         <div className="space-y-6">
           <div>
             <Input
@@ -256,7 +268,7 @@ const ChatBotForm = () => {
             </p>
             <p className="ml-4 text-white">{cutoffMarks}</p>
           </div>
-          <div className="btn btn-accent text-white w-full text-lg">
+          <div className="btn btn-neutral text-white w-full text-lg">
             <button title="submit" type="submit">
               Submit
             </button>
@@ -265,7 +277,11 @@ const ChatBotForm = () => {
       </form>
 
       <div>
-        <h2 className="text-2xl font-bold leading-loose">Here you can check your Cutoff <br/>and Top Ranklist of colleges<br/> will update soon...</h2>
+        <h2 className="text-2xl font-bold leading-loose max:md:hidden">
+          Here you can check your Cutoff <br />
+          and Top Ranklist of colleges
+          <br /> will update soon...
+        </h2>
       </div>
     </div>
   );

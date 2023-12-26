@@ -1,31 +1,33 @@
-import { useRouter } from "next/router";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
-  // const router = useRouter();
   if (req.method !== "POST") {
     return new NextResponse("Method not allowed", { status: 405 });
   }
-  
-  const body = await req.json();
-  const { name, mobileNumber, course, community, cutoffMarks } = body;
-  
-  const user = await prisma.guestUser.create({
-    data: {
-      name,
-      mobileNumber,
-      course,
-      community,
-      cutoffMarks,
-    },
-  });
 
-  // router.push('/codet');
+  try {
+    const body = await req.json();
+    const { name, mobileNumber, course, community, cutoffMarks } = body;
 
-  return NextResponse.json(user);
+    const user = await prisma.guestUser.create({
+      data: {
+        name,
+        mobileNumber,
+        course,
+        community,
+        cutoffMarks,
+      },
+    });   
+
+    return NextResponse.json(user);
+  } catch (error: any) {
+    return NextResponse.json("Prisma Database Connection", error);
+  } finally {
+    prisma.$disconnect();
+  }
 }
 
 // export async function getServerSideProps() {
