@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import CustomRouter from "../hooks/useRouter";
+import { fetchCutOffData } from "../controller/database";
 
 const prisma = new PrismaClient();
 
@@ -20,7 +22,40 @@ export async function POST(req: Request) {
         community,
         cutoffMarks,
       },
-    });   
+    });
+
+    const userData = {
+      id: user.id,
+      mobileNumber: user.mobileNumber,
+      course: user.course,
+      community: user.community,
+      cutoffMarks: user.cutoffMarks,
+    };
+
+    const response = await fetchCutOffData();
+    console.log(response?.json());
+
+    const cutoff_Data = await response?.json();
+    const filteringColleges = cutoff_Data.filter(
+      (data: { cutoffDetailsList: any[] }) =>
+        data.cutoffDetailsList.some((courses) => {
+          if (true) {
+            for (const key of courses) {
+              if (courses[key] == userData.cutoffMarks) {
+                const communityMark = courses[key];
+                courses?.courseCode === userData.course &&
+                  communityMark <= userData.cutoffMarks;
+                return true;
+              }
+            }
+          }
+        })
+    );
+
+    console.log(filteringColleges);
+
+    const router = CustomRouter();
+    router.push("/data");
 
     return NextResponse.json(user);
   } catch (error: any) {
@@ -29,12 +64,3 @@ export async function POST(req: Request) {
     prisma.$disconnect();
   }
 }
-
-// export async function getServerSideProps() {
-//   const collegeList: GuestUser[] = await prisma.guestUser.findMany();
-//   return {
-//     props: {
-//       CollegeListProps: collegeList,
-//     },
-//   };
-// }

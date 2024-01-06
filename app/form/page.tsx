@@ -4,8 +4,8 @@ import { ZodError } from "zod";
 import formSchema from "../api/schema/schema";
 import Input from "../components/formInputs/Input";
 import { FormData } from "../components/formInputs/Input";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+
 
 const ChatBotForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -23,7 +23,6 @@ const ChatBotForm = () => {
     {}
   );
   const [cutoffMarks, setCutoffMarks] = useState<number | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const calculatecutoff = () => {
@@ -96,17 +95,17 @@ const ChatBotForm = () => {
       const data = { ...newFormData, cutoffMarks };
 
       userDetail(data);
-
-      router.push("/data");
     } catch (error) {
       if (error) throw new Error("Error in catch", error);
     }
   };
 
   return (
-    <div className="mt-6 grid place-items-center grid-flow-col gap-4 max-md:grid-flow-row">
+    <div className="mt-6 grid place-items-center grid-flow-col gap-16 max-md:grid-flow-row m-2 max-md:gap-4">
       <div className="grid place-items-center">
-        <h2 className="text-5xl font-bold text-blue-400">Welcome to Aahzi</h2>
+        <h2 className="text-5xl font-bold text-blue-400 max-md:text-2xl">
+          Welcome to Aahzi
+        </h2>
 
         <Image
           src="/chatbot-welocme.jpg"
@@ -118,21 +117,20 @@ const ChatBotForm = () => {
         />
       </div>
       <div>
-        <h2 className="text-2xl font-bold leading-loose hidden max-md:block max-md:text-lg tracking-widest">
-          Here you can check your Cutoff <br />
-          and Top Ranklist of colleges
-          <br /> will update soon...
+        <h2 className="font-bold leading-loose hidden max-md:block text-sm tracking-widest">
+          Here you can check your Cutoff and Top Ranklist of colleges will
+          update soon...
         </h2>
       </div>
-      {/* <div className="flex flex-col w-full"><div className="divider divide-warning"></div></div> */}
 
       <form
-        className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-10 rounded-xl"
+        className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-7 rounded-xl max-md:w-3/5"
         onSubmit={onSubmit}
       >
-        <p className="text-5xl font-bold max-sm:text-2xl max-md:text-2xl text-white">
-          Form
-        </p>
+        <p className="text-5xl font-bold max-md:text-2xl text-white">Form</p>
+        {/* <div className="flex flex-col w-full">
+          <div className="divider divide-black divide-solid"></div>
+        </div> */}
         <div className="space-y-6">
           <div>
             <Input
@@ -277,10 +275,9 @@ const ChatBotForm = () => {
       </form>
 
       <div>
-        <h2 className="text-2xl font-bold leading-loose max:md:hidden">
-          Here you can check your Cutoff <br />
-          and Top Ranklist of colleges
-          <br /> will update soon...
+        <h2 className="text-2xl w-3/4 font-bold leading-loose max:md:hidden">
+          Here you can check your Cutoff and Top Ranklist of colleges will
+          update soon...
         </h2>
       </div>
     </div>
