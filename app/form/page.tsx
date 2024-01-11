@@ -8,6 +8,7 @@ import Image from "next/image";
 
 
 const ChatBotForm = () => {
+  
   const [formData, setFormData] = useState<FormData>({
     name: "",
     mobileNumber: "",

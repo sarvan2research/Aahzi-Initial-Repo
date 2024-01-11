@@ -19,3 +19,10 @@ model GuestUser {
   cutoffMarks  Int
   createdAt    DateTime @default(now())
 }
+
+model Cutoff {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  collegeCode   Int
+  collegeName   String
+  cutoffDetails Json[]
+}
