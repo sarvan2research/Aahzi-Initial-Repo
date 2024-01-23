@@ -36,16 +36,17 @@
 
 // export async function fetchCutOffData() {
 //   try {
-//     const { db }: any = await connectToDatabase();
+//     const db = await connectToDatabase();
 //     const cutOff_collection = await db.collection("CutOff");
 //     const cutoff_data = await cutOff_collection.find().toArray();
 //     return NextResponse.json(cutoff_data);
-//     // res.status(200).json(cutoff_data);
 //   } catch (error) {
 //     console.log(error);
 //   } finally {
 //     disconnectFromDatabase();
 //   }
 // }
+
+
 
 

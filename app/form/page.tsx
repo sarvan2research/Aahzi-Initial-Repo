@@ -1,14 +1,13 @@
 "use client";
 import { useState, FormEvent, useEffect, ChangeEvent } from "react";
-import { ZodError } from "zod";
+import { ZodError, any } from "zod";
 import formSchema from "../api/schema/schema";
 import Input from "../components/formInputs/Input";
 import { FormData } from "../components/formInputs/Input";
 import Image from "next/image";
-
+import Router from "../api/hooks/useRouter";
 
 const ChatBotForm = () => {
-  
   const [formData, setFormData] = useState<FormData>({
     name: "",
     mobileNumber: "",
@@ -20,9 +19,7 @@ const ChatBotForm = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>(
-    {}
-  );
+  // const [touchedFields, setTouchedFields] = useState();
   const [cutoffMarks, setCutoffMarks] = useState<number | null>(null);
 
   useEffect(() => {
@@ -35,35 +32,35 @@ const ChatBotForm = () => {
       setCutoffMarks(cutoff);
     };
 
-    const validateForm = async () => {
-      try {
-        if (Object.values(touchedFields).some((field) => field)) {
-          formSchema.parse(formData);
-          calculatecutoff();
-          setErrors({});
-        }
-      } catch (error) {
-        if (error instanceof ZodError) {
-          const newErrors: Record<string, string> = {};
-          error.errors.forEach((err) => {
-            const path = err.path.join(".");
-            newErrors[path] = err.message;
-          });
-          setErrors(newErrors);
-        } else {
-          console.error("Form has errors. Please check and correct.", error);
-        }
-      }
-    };
-    validateForm();
+    // const validateForm = async () => {
+    //   try {
+    //     if (Object.values(touchedFields).some((field) => field)) {
+    //       formSchema.parse(formData);
+    //       calculatecutoff();
+    //       setErrors({});
+    //     }
+    //   } catch (error) {
+    //     if (error instanceof ZodError) {
+    //       const newErrors: Record<string, string> = {};
+    //       error.errors.forEach((err) => {
+    //         const path = err.path.join(".");
+    //         newErrors[path] = err.message;
+    //       });
+    //       setErrors(newErrors);
+    //     } else {
+    //       console.error("Form has errors. Please check and correct.", error);
+    //     }
+    //   }
+    // };
+    // validateForm();
     calculatecutoff();
-  }, [formData, touchedFields]);
+  }, [formData]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setTouchedFields((prev) => ({ ...prev, [name]: true }));
+    // setTouchedFields((prev) => ({ ...prev, [name]: true }));
     const numericValue = name.includes("Marks") ? parseFloat(value) : value;
     const updatedValue =
       typeof numericValue === "number" && !isNaN(numericValue)
@@ -72,21 +69,21 @@ const ChatBotForm = () => {
 
     setFormData((prevData) => ({ ...prevData, [name]: updatedValue }));
   };
-  async function userDetail(data: {
-    cutoffMarks: number | null;
-    mobileNumber: string;
-    course: string;
-  }) {
-    fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
+  // async function userDetail(data: {
+  //   cutoffMarks: number | null;
+  //   mobileNumber: string;
+  //   course: string;
+  // }) {
+  //   fetch("/api/register", {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  // }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const parsedFormData = formSchema.parse(formData);
@@ -95,9 +92,39 @@ const ChatBotForm = () => {
         parsedFormData;
       const data = { ...newFormData, cutoffMarks };
 
-      userDetail(data);
+      const userDetail = fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if ((await userDetail).ok) {
+        const userID = (await userDetail).json();
+        console.log(await userID);
+
+        await fetch("/api/userID", {
+          method: "POST",
+          body: JSON.stringify(await userID),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        Router("/data");
+      }
     } catch (error) {
-      if (error) throw new Error("Error in catch", error);
+      if (error instanceof ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          const path = err.path.join(".");
+          newErrors[path] = err.message;
+          setErrors(newErrors);
+        });
+      } else {
+        console.log("Form has no errors.");
+      }
     }
   };
 
@@ -172,7 +199,9 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 suppressHydrationWarning={true}
               >
-                <option>Select any Course</option>
+                <option disabled selected>
+                  Select any Course
+                </option>
                 <option value="ME">Mechanical</option>
                 <option value="EE">EEE</option>
                 <option value="EC">ECE</option>
@@ -196,7 +225,9 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 suppressHydrationWarning={true}
               >
-                <option>Select your Community</option>
+                <option disabled selected>
+                  Select your Community
+                </option>
                 <option value="cutOffOC">OC</option>
                 <option value="cutOffBC">BC</option>
                 <option value="cutOffBCM">BCM</option>
@@ -263,12 +294,16 @@ const ChatBotForm = () => {
           </div>
           <div className="flex">
             <p className="text-base leading-6 text-gray-900">
-              Your Calculated Cutoff is :{" "}
+              Your Calculated Cutoff is :
             </p>
             <p className="ml-4 text-white">{cutoffMarks}</p>
           </div>
-          <div className="btn btn-neutral text-white w-full text-lg">
-            <button title="submit" type="submit">
+          <div>
+            <button
+              className="btn btn-neutral text-white w-full text-lg"
+              title="submit"
+              type="submit"
+            >
               Submit
             </button>
           </div>

@@ -1,13 +1,26 @@
 import Image from "next/image";
 
 const Data = async () => {
+  
 const result = fetch('/api/controller/userList',{
   method:'GET',
   headers: {
     "Content-Type": "application/json",
   }
 });
-console.log(result);
+console.log((await result).status);
+
+const response = fetch('/api/userID',{
+  method:'GET',
+  headers:{
+    'Content-Type':'application/json'
+  }
+});
+
+if((await response).ok){
+  const responseBody = (await response).json();
+  console.log(responseBody);
+}
 
   return (
     <div className="grid place-items-center">

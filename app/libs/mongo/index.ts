@@ -10,7 +10,7 @@ if (!URL)
 
   let cachedClient: MongoClient | null = null;
   let cachedDb: Db | null | undefined = undefined;
-  let client = new MongoClient(URL, options)
+  const client = new MongoClient(URL, options)
 
   export async function connectToDatabase() {
     try {

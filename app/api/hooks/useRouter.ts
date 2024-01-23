@@ -1,9 +1,10 @@
 "use client";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-const CustomRouter = () => {
+const Router = (path:string) => {
   const route = useRouter();
-  return route;
+  console.log(path);
+  route.push('/'+path);
 };
 
-export default CustomRouter;
+export default Router;
