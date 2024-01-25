@@ -1,11 +1,11 @@
 "use client";
 import { useState, FormEvent, useEffect, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
 import { ZodError, any } from "zod";
 import formSchema from "../api/schema/schema";
 import Input from "../components/formInputs/Input";
 import { FormData } from "../components/formInputs/Input";
 import Image from "next/image";
-import Router from "../api/hooks/useRouter";
 
 const ChatBotForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -21,6 +21,7 @@ const ChatBotForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   // const [touchedFields, setTouchedFields] = useState();
   const [cutoffMarks, setCutoffMarks] = useState<number | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const calculatecutoff = () => {
@@ -92,7 +93,7 @@ const ChatBotForm = () => {
         parsedFormData;
       const data = { ...newFormData, cutoffMarks };
 
-      const userDetail = fetch("/api/register", {
+      const userDetail = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -100,19 +101,11 @@ const ChatBotForm = () => {
         },
       });
 
-      if ((await userDetail).ok) {
-        const userID = (await userDetail).json();
-        console.log(await userID);
+      if (userDetail.ok) {
+        const userID = await userDetail.json();
+        console.log(userID);
 
-        await fetch("/api/userID", {
-          method: "POST",
-          body: JSON.stringify(await userID),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        Router("/data");
+        router.push(`/data?user=${userID}`);
       }
     } catch (error) {
       if (error instanceof ZodError) {

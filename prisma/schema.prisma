@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,19 +7,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model GuestUser {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  mobileNumber String
-  course       String
-  community    String
-  cutoffMarks  Int
-  createdAt    DateTime @default(now())
+type CutoffCutoffDetailsList {
+  courseCode   String
+  courseName   String
+  /// Multiple data types found: Float: 49.2%, Int: 50.8% out of 2750 sampled entries
+  cutOffBC     Json?
+  /// Multiple data types found: Float: 50.8%, Int: 49.2% out of 2750 sampled entries
+  cutOffBCM    Json?
+  /// Multiple data types found: Float: 50.5%, Int: 49.5% out of 2750 sampled entries
+  cutOffMBC    Json?
+  /// Multiple data types found: Float: 51.4%, Int: 48.6% out of 2750 sampled entries
+  cutOffOC     Json
+  /// Multiple data types found: Float: 48.3%, Int: 51.7% out of 2750 sampled entries
+  cutOffSC     Json?
+  /// Multiple data types found: Float: 52%, Int: 48% out of 2750 sampled entries
+  cutOffSCA    Json?
+  /// Multiple data types found: Float: 52%, Int: 48% out of 2750 sampled entries
+  cutOffST     Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  cutoffMBCDNC Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  cutoffMBCV   Json?
+  year         Int
+}
+
+type RankRankDetailsList {
+  courseCode String
+  courseName String
+  rankBC     Int?
+  rankBCM    Int?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  rankMBC    Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  rankMBCDNC Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  rankMBCV   Json?
+  rankOC     Int
+  rankSC     Int?
+  rankSCA    Int?
+  rankST     Int?
+  year       Int
 }
 
 model Cutoff {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  collegeCode   Int
-  collegeName   String
-  cutoffDetails Json[]
+  id                String                    @id @default(auto()) @map("_id") @db.ObjectId
+  collegeCode       Int
+  collegeName       String
+  cutoffDetailsList CutoffCutoffDetailsList[]
+}
+
+model GuestUser {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  community    String
+  course       String
+  createdAt    DateTime? @db.Date
+  cutoffMarks  BigInt
+  mobileNumber String
+  name         String
+}
+
+model Rank {
+  id              String                @id @default(auto()) @map("_id") @db.ObjectId
+  collegeCode     Int
+  collegeName     String
+  rankDetailsList RankRankDetailsList[]
 }

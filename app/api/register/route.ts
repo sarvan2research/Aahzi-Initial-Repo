@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/libs/prismadb";
 
 export async function POST(req: Request, res:Response) {
   if (req.method !== "POST") {
@@ -24,7 +22,7 @@ export async function POST(req: Request, res:Response) {
 
     const userID = user.id;
     const encryptedUserID = btoa(userID);
-    console.log(encryptedUserID);
+    // console.log(encryptedUserID);
 
     return NextResponse.json(encryptedUserID);
   } catch (error: any) {

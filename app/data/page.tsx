@@ -1,39 +1,83 @@
-import Image from "next/image";
+"use client";
+import { useSearchParams } from "next/navigation";
+// import Image from "next/image";
+import { useState, useEffect } from "react";
+import CollegeTable from "../components/collegeTable/CollegeTable";
+import { CollegeTableLoading } from "../components/loading/CollegeTableLoading";
+import { ICollegeDetails } from "../libs/types/types";
 
-const Data = async () => {
-  
-const result = fetch('/api/controller/userList',{
-  method:'GET',
-  headers: {
-    "Content-Type": "application/json",
-  }
-});
-console.log((await result).status);
+const Data = () => {
+  const searchParams = useSearchParams();
+  const [collegeData, setcollegeData] = useState<any | undefined>(undefined);
+  const [showDetailsArray, setShowDetailsArray] = useState<boolean[]>(
+    Array(collegeData?.length).fill(false)
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-const response = fetch('/api/userID',{
-  method:'GET',
-  headers:{
-    'Content-Type':'application/json'
-  }
-});
+  const userID: any = searchParams.get("user");
+  console.log(userID);
+  const decryptedUserID = atob(userID);
+  console.log(decryptedUserID);
 
-if((await response).ok){
-  const responseBody = (await response).json();
-  console.log(responseBody);
-}
+  const handleItemClick = (index:number) => {
+    const updatedArray = showDetailsArray.map((value, i) => i === index);
+    setShowDetailsArray(updatedArray);
+  };
+
+  const fetchCutoffData = async (): Promise<any[]> => {
+    try {
+      const response = await fetch("/api/userID", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response?.json();
+      return result;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+
+    // return new Promise<any[]>((resolve) => {
+    //   setTimeout(() => {
+    //     const response = await fetch("/api/userID", {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+    //     resolve(response);
+    //   }, 2000)
+    // })
+  };
+
+  useEffect(() => {
+    fetchCutoffData()
+      .then((result) => {
+        setIsLoading(true);
+        setcollegeData(result);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setIsLoading(true);
+      });
+  }, []);
 
   return (
-    <div className="grid place-items-center">
-      <h1 className="text-center text-4xl font-bold leading-20 text-zinc-800 mt-10 mb-10">
-        Hey! Our Team had got your query. Soon we&apos;ll reach you
-      </h1>
-      <Image
-        src="/smiley-emoji.png"
-        alt="smiley-emoji"
-        className="max-w-sm rounded-lg shadow-2xl"
-        width={500}
-        height={500}
-      />
+    <div className="">
+      {isLoading ? (
+        collegeData?.map((data: ICollegeDetails, index: any) => (
+          <CollegeTable
+            key={data?.id}
+            data={collegeData}
+            showDetails={showDetailsArray[index]}
+            onClick={() => handleItemClick(index)}
+          />
+        ))
+      ) : (
+        <CollegeTableLoading/>
+      )}
     </div>
   );
 };
