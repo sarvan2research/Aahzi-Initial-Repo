@@ -103,8 +103,6 @@ const ChatBotForm = () => {
 
       if (userDetail.ok) {
         const userID = await userDetail.json();
-        console.log(userID);
-
         router.push(`/data?user=${userID}`);
       }
     } catch (error) {

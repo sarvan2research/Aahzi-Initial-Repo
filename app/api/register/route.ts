@@ -20,7 +20,8 @@ export async function POST(req: Request, res:Response) {
       },
     });
 
-    const userID = user.id;
+    const userID = user?.id;
+    // console.log(userID)
     const encryptedUserID = btoa(userID);
     // console.log(encryptedUserID);
 

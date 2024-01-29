@@ -11,23 +11,23 @@ type CutoffCutoffDetailsList {
   courseCode   String
   courseName   String
   /// Multiple data types found: Float: 49.2%, Int: 50.8% out of 2750 sampled entries
-  cutOffBC     Json?
+  cutOffBC     Float?
   /// Multiple data types found: Float: 50.8%, Int: 49.2% out of 2750 sampled entries
-  cutOffBCM    Json?
+  cutOffBCM    Float?
   /// Multiple data types found: Float: 50.5%, Int: 49.5% out of 2750 sampled entries
-  cutOffMBC    Json?
+  cutOffMBC    Float?
   /// Multiple data types found: Float: 51.4%, Int: 48.6% out of 2750 sampled entries
-  cutOffOC     Json
+  cutOffOC     Float
   /// Multiple data types found: Float: 48.3%, Int: 51.7% out of 2750 sampled entries
-  cutOffSC     Json?
+  cutOffSC     Float?
   /// Multiple data types found: Float: 52%, Int: 48% out of 2750 sampled entries
-  cutOffSCA    Json?
+  cutOffSCA    Float?
   /// Multiple data types found: Float: 52%, Int: 48% out of 2750 sampled entries
-  cutOffST     Json?
+  cutOffST     Float?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  cutoffMBCDNC Json?
+  cutoffMBCDNC Float?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  cutoffMBCV   Json?
+  cutoffMBCV   Float?
   year         Int
 }
 
@@ -37,11 +37,11 @@ type RankRankDetailsList {
   rankBC     Int?
   rankBCM    Int?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  rankMBC    Json?
+  rankMBC    Float?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  rankMBCDNC Json?
+  rankMBCDNC Float?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  rankMBCV   Json?
+  rankMBCV   Float?
   rankOC     Int
   rankSC     Int?
   rankSCA    Int?
@@ -58,12 +58,12 @@ model Cutoff {
 
 model GuestUser {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  mobileNumber String
   community    String
   course       String
+  cutoffMarks  Float
   createdAt    DateTime? @db.Date
-  cutoffMarks  BigInt
-  mobileNumber String
-  name         String
 }
 
 model Rank {

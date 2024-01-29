@@ -14,45 +14,34 @@ const Data = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
 
-  const userID: any = searchParams.get("user");
-  console.log(userID);
-  const decryptedUserID = atob(userID);
-  console.log(decryptedUserID);
-
-  const handleItemClick = (index:number) => {
+  const handleItemClick = (index: number) => {
     const updatedArray = showDetailsArray.map((value, i) => i === index);
     setShowDetailsArray(updatedArray);
   };
 
-  const fetchCutoffData = async (): Promise<any[]> => {
-    try {
-      const response = await fetch("/api/userID", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await response?.json();
-      return result;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-
-    // return new Promise<any[]>((resolve) => {
-    //   setTimeout(() => {
-    //     const response = await fetch("/api/userID", {
-    //       method: "GET",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     });
-    //     resolve(response);
-    //   }, 2000)
-    // })
-  };
-
   useEffect(() => {
+    const userID: any = searchParams.get("user");
+    // console.log(userID);
+    const decryptedUserID = atob(userID);
+    // console.log(decryptedUserID);
+
+    const fetchCutoffData = async (): Promise<any[]> => {
+      try {
+        const response = await fetch("/api/userID", {
+          method: "POST",
+          body: JSON.stringify({ userID: decryptedUserID }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response?.json();
+        console.log(result);
+        return result;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+      }
+    };
     fetchCutoffData()
       .then((result) => {
         setIsLoading(true);
@@ -62,12 +51,12 @@ const Data = () => {
         console.error("Error fetching data:", error);
         setIsLoading(true);
       });
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className="">
       {isLoading ? (
-        collegeData?.map((data: ICollegeDetails, index: any) => (
+        collegeData?.map((data: ICollegeDetails, index: number) => (
           <CollegeTable
             key={data?.id}
             data={collegeData}
@@ -76,7 +65,7 @@ const Data = () => {
           />
         ))
       ) : (
-        <CollegeTableLoading/>
+        <CollegeTableLoading />
       )}
     </div>
   );
