@@ -19,7 +19,7 @@ const ChatBotForm = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  // const [touchedFields, setTouchedFields] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [cutoffMarks, setCutoffMarks] = useState<number | null>(null);
   const router = useRouter();
 
@@ -87,6 +87,7 @@ const ChatBotForm = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setIsLoading(true)
       const parsedFormData = formSchema.parse(formData);
 
       const { physicsMarks, chemistryMarks, mathsMarks, ...newFormData } =
@@ -105,6 +106,7 @@ const ChatBotForm = () => {
         const userID = await userDetail.json();
         router.push(`/data?user=${userID}`);
       }
+      setIsLoading(false);
     } catch (error) {
       if (error instanceof ZodError) {
         const newErrors: Record<string, string> = {};
@@ -290,13 +292,23 @@ const ChatBotForm = () => {
             <p className="ml-4 text-white">{cutoffMarks}</p>
           </div>
           <div>
-            <button
-              className="btn btn-neutral text-white w-full text-lg"
-              title="submit"
-              type="submit"
-            >
-              Submit
-            </button>
+            {isLoading ? (
+              <button
+                className="btn btn-disabled text-white w-full text-lg"
+                title="submit"
+                type="submit"
+              >
+                Submitting Data...
+              </button>
+            ) : (
+              <button
+                className="btn btn-neutral text-white w-full text-lg"
+                title="submit"
+                type="submit"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </div>
       </form>
