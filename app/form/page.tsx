@@ -1,7 +1,7 @@
 "use client";
 import { useState, FormEvent, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
-import { ZodError, any } from "zod";
+import { ZodError } from "zod";
 import formSchema from "../api/schema/schema";
 import Input from "../components/formInputs/Input";
 import { FormData } from "../components/formInputs/Input";
@@ -10,7 +10,7 @@ import Image from "next/image";
 const ChatBotForm = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    mobileNumber: "",
+    mobileNumber: "", 
     physicsMarks: 0,
     chemistryMarks: 0,
     mathsMarks: 0,
@@ -32,28 +32,6 @@ const ChatBotForm = () => {
       const cutoff = maths + physics + chemistry;
       setCutoffMarks(cutoff);
     };
-
-    // const validateForm = async () => {
-    //   try {
-    //     if (Object.values(touchedFields).some((field) => field)) {
-    //       formSchema.parse(formData);
-    //       calculatecutoff();
-    //       setErrors({});
-    //     }
-    //   } catch (error) {
-    //     if (error instanceof ZodError) {
-    //       const newErrors: Record<string, string> = {};
-    //       error.errors.forEach((err) => {
-    //         const path = err.path.join(".");
-    //         newErrors[path] = err.message;
-    //       });
-    //       setErrors(newErrors);
-    //     } else {
-    //       console.error("Form has errors. Please check and correct.", error);
-    //     }
-    //   }
-    // };
-    // validateForm();
     calculatecutoff();
   }, [formData]);
 
@@ -61,7 +39,6 @@ const ChatBotForm = () => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    // setTouchedFields((prev) => ({ ...prev, [name]: true }));
     const numericValue = name.includes("Marks") ? parseFloat(value) : value;
     const updatedValue =
       typeof numericValue === "number" && !isNaN(numericValue)
@@ -70,19 +47,6 @@ const ChatBotForm = () => {
 
     setFormData((prevData) => ({ ...prevData, [name]: updatedValue }));
   };
-  // async function userDetail(data: {
-  //   cutoffMarks: number | null;
-  //   mobileNumber: string;
-  //   course: string;
-  // }) {
-  //   fetch("/api/register", {
-  //     method: "POST",
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  // }
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,7 +70,7 @@ const ChatBotForm = () => {
         const userID = await userDetail.json();
         router.push(`/data?user=${userID}`);
       }
-      setIsLoading(false);
+      
     } catch (error) {
       if (error instanceof ZodError) {
         const newErrors: Record<string, string> = {};
@@ -149,9 +113,6 @@ const ChatBotForm = () => {
         onSubmit={onSubmit}
       >
         <p className="text-5xl font-bold max-md:text-2xl text-white">Form</p>
-        {/* <div className="flex flex-col w-full">
-          <div className="divider divide-black divide-solid"></div>
-        </div> */}
         <div className="space-y-6">
           <div>
             <Input
@@ -192,7 +153,7 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 suppressHydrationWarning={true}
               >
-                <option disabled selected>
+                <option disabled selected value=''>
                   Select any Course
                 </option>
                 <option value="ME">Mechanical</option>
@@ -218,7 +179,7 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 suppressHydrationWarning={true}
               >
-                <option disabled selected>
+                <option disabled selected value=''>
                   Select your Community
                 </option>
                 <option value="cutOffOC">OC</option>
@@ -294,7 +255,7 @@ const ChatBotForm = () => {
           <div>
             {isLoading ? (
               <button
-                className="btn btn-disabled text-white w-full text-lg"
+                className="h-12 rounded-lg bg-slate-500 text-white w-full text-lg"
                 title="submit"
                 type="submit"
               >

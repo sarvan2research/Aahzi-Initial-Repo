@@ -1,5 +1,4 @@
 interface ICollegeDetails {
-  [x: string]: any;
   id: string;
   collegeCode: string;
   collegeName: string;
@@ -22,10 +21,7 @@ type cutoffDetailsList = {
 };
 
 interface ICollegeTable {
-  key: any;
-  data: ICollegeDetails;
-  showDetails?: boolean;
-  onClick: () => void;
+  data: ICollegeDetails[];
 }
 
 export type { ICollegeDetails, ICollegeTable };

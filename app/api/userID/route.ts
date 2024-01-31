@@ -42,6 +42,10 @@ export async function POST(req: Request) {
     console.log(users!.community);
     console.log(users!.course);
     const colleges = await prisma.cutoff.findMany({
+      select:{
+        collegeCode:true,
+        collegeName:true,
+      },
       where: {
         cutoffDetailsList: {
           some: {
@@ -53,6 +57,7 @@ export async function POST(req: Request) {
           },
         },
       },
+      take:10
     });
     console.log("colleges :>> ", colleges);
     return NextResponse.json(colleges);

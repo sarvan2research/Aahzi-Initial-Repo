@@ -7,7 +7,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useToggle(false);
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-xl">
+      <div className="navbar bg-blue-500 shadow-xl">
         <div className="flex-none md:hidden" onClick={setToggle}>
           <button
             className="btn btn-square btn-ghost"
@@ -32,10 +32,10 @@ const Navbar = () => {
         </div>
         <div className="flex-auto gap-6">
           <div className="flex justify-evenly min-w-full max-sm:hidden">
-            <Link href={"/"} className="hover:text-rose-500">
+            <Link href={"/"} className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600">
               Aahzi
             </Link>
-            <Link href={"/form"} className="hover:text-rose-500">
+            <Link href={"/form"} className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600">
               Form
             </Link>
            
@@ -74,13 +74,13 @@ const Navbar = () => {
           <div aria-labelledby="dropdownDefaultButton">
             <Link
               href={"/"}
-              className="block hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
+              className="block text-white hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
             >
               Aahzi
             </Link>
             <Link
               href={"/form"}
-              className="block hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
+              className="block text-white hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
             >
               Form
             </Link>
