@@ -4,20 +4,6 @@ export async function POST(req: Request) {
   if (req.method == "GET") {
     console.log("GET");
   }
-
-  const conditions = [
-    { cutOffBC: "" },
-    { cutOffOC: "" },
-    { cutOffBC: "" },
-    { cutOffBCM: "" },
-    { cutoffMBCDNC: "" },
-    { cutoffMBCV: "" },
-    { cutOffSC: "" },
-    { cutOffST: "" },
-    { cutOffMBC: "" },
-    { cutOffSCA: "" },
-  ];
-
   let incrementedCutOff = 0;
   let decrementedCutOff = 0;
 
@@ -31,9 +17,7 @@ export async function POST(req: Request) {
         id: userID,
       },
     });
-    console.log(users);
-    console.log(users!.cutoffMarks % 5);
-
+    
     incrementedCutOff = users!.cutoffMarks + 2;
     decrementedCutOff = users!.cutoffMarks - 2;
 
