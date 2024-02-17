@@ -1,10 +1,20 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
-import CollegeTable from "../components/collegeTable/CollegeTable";
-import { CollegeTableLoading } from "../components/loading/CollegeTableLoading";
+import CollegeTable from "@/app/components/collegeTable/CollegeTable";
+import { CollegeTableLoading } from "@/app/components/loading/CollegeTableLoading";
 
 const Data = () => {
+  return(
+    <Suspense fallback={<CollegeTableLoading/>}>
+      <DataPage/>
+    </Suspense>
+  );
+};
+
+export default Data;
+
+const DataPage = () => {
   const searchParams = useSearchParams();
   const [collegeData, setcollegeData] = useState<any | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,15 +54,11 @@ const Data = () => {
 
   return (
     <div className="mt-8">
-      <Suspense fallback={<CollegeTableLoading/>}>
         {isLoading ? (
           <CollegeTable data={collegeData} />
         ) : (
           <CollegeTableLoading />
         )}
-      </Suspense>
     </div>
   );
-};
-
-export default Data;
+} 
