@@ -2,8 +2,9 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  if (req.method == "GET") {
-    console.log("GET");
+  if (req.method !== "POST") {
+    console.log("GET in userRankID");
+    return new NextResponse("Method not allowed", { status: 405 });
   }
   try {
     const body = await req?.json();
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
       
       return NextResponse.json({ error: 'No matching results found, issue related to form submission.Please re-submit rank form' });
     }
-    const colleges = await prisma.rank.findFirst({
+    const colleges = await prisma.rank.findMany({
       select:{
         collegeCode:true,
         collegeName:true,
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
         collegeName: users!.collegeName,
         rankDetailsList: {
           some: {
-            courseCode: users!.course,
+            courseName: users!.course,
             [users!.community]: {
               gte: users!.rank,
             },

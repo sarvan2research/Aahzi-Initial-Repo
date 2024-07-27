@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { ZodError } from "zod";
@@ -6,12 +6,21 @@ import formSchema from "../api/schema/schema";
 import Input from "../components/formInputs/Input";
 import Image from "next/image";
 
+interface College {
+  collegeName: string;
+  collegeCode: number;
+}
+
+interface Course {
+  courseCode: string;
+  courseName: string;
+}
+
 const ChatBotForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     mobileNumber: "",
-    physicsMarks: 0,
-    chemistryMarks: 0,
+    collegeName: "",
     rank: 0,
     course: "",
     community: "",
@@ -19,39 +28,94 @@ const ChatBotForm = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredColleges, setFilteredColleges] = useState<string[]>([]);
-  const [showDropdown, setShowDropdown] = useState(false); // State for dropdown visibility
   const router = useRouter();
-
-  const colleges = [
-    "Knowledge Institute of Technology",
-    "KSR",
-    "Sona",
-    "Kongu",
-    "PSR",
-    // Add more college names here
-  ];
+  //Dynamic loading of course details
+  const [searchCourseQuery, setSearchCourseQuery] = useState("");
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
-    if (searchQuery) {
-      setFilteredColleges(
-        colleges.filter((college) =>
-          college.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+    async function fetchCourses() {
+      const response = await fetch("/api/courses");
+      const courseData: Course[] = await response.json();
+      setCourses(courseData);
+    }
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    if (searchCourseQuery.length > 2) {
+      const filtered = courses.filter((course) =>
+        course.courseName
+          .toLowerCase()
+          .includes(searchCourseQuery.toLowerCase())
       );
-      setShowDropdown(true);
+      setFilteredCourses(filtered);
+    } else {
+      setFilteredCourses([]);
+    }
+  }, [searchCourseQuery, courses]);
+
+  const handleCourseSelect = (course: Course) => {
+    setSelectedCourse(course);
+    setFormData((prevData) => ({ ...prevData, course: course.courseName }));
+    setSearchCourseQuery(""); // Clear search query
+    setFilteredCourses([]); // Hide the dropdown
+  };
+
+  const handleCourseInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchCourseQuery(e.target.value);
+    setFormData((prevData) => ({ ...prevData, course: e.target.value }));
+  };
+
+  //Dynamic loading of course details
+  const [searchQuery, setSearchQuery] = useState("");
+  const [colleges, setColleges] = useState<College[]>([]);
+  const [filteredColleges, setFilteredColleges] = useState<College[]>([]);
+  const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
+
+  useEffect(() => {
+    async function fetchColleges() {
+      const response = await fetch("/api/colleges");
+      const data: College[] = await response.json();
+      setColleges(data);
+    }
+    fetchColleges();
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery.length > 2) {
+      const filtered = colleges.filter((college) =>
+        college.collegeName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredColleges(filtered);
     } else {
       setFilteredColleges([]);
-      setShowDropdown(false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, colleges]);
+
+  const handleCollegeSelect = (college: College) => {
+    setSelectedCollege(college);
+    setFormData((prevData) => ({
+      ...prevData,
+      collegeName: college.collegeName,
+    }));
+    setSearchQuery(""); // Clear search query
+    setFilteredColleges([]); // Hide the dropdown
+  };
+
+  const handleCollegeInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setFormData((prevData) => ({ ...prevData, collegeName: e.target.value }));
+  };
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    const numericValue = name.includes("Marks") || name === "rank" ? parseFloat(value) : value;
+    const numericValue =
+      name.includes("Marks") || name === "rank" ? parseFloat(value) : value;
     const updatedValue =
       typeof numericValue === "number" && !isNaN(numericValue)
         ? numericValue
@@ -60,28 +124,15 @@ const ChatBotForm = () => {
     setFormData((prevData) => ({ ...prevData, [name]: updatedValue }));
   };
 
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleDropdownSelect = (college: string) => {
-    setSearchQuery(college);
-    setFormData((prevData) => ({ ...prevData, course: college }));
-    setShowDropdown(false);
-  };
-
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const parsedFormData = formSchema.parse(formData);
+      //const parsedFormData = formSchema.parse(formData);
+      console.log(formData);
+      const data = { ...formData };
 
-      const { physicsMarks, chemistryMarks, rank, ...newFormData } =
-        parsedFormData;
-
-      const data = { ...newFormData };
-
-      const userDetail = await fetch("/api/register", {
+      const userDetail = await fetch("/api/registerUserRank", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -91,9 +142,8 @@ const ChatBotForm = () => {
 
       if (userDetail.ok) {
         const userID = await userDetail.json();
-        router.push(`/data?user=${userID}`);
+        router.push(`/dataRank?user=${userID}`);
       }
-      
     } catch (error) {
       if (error instanceof ZodError) {
         const newErrors: Record<string, string> = {};
@@ -127,14 +177,17 @@ const ChatBotForm = () => {
       </div>
       <div>
         <h2 className="font-bold leading-loose hidden max-md:block text-sm tracking-widest">
-          Here you can check your Cutoff and Top Ranklist of colleges will update soon...
+          Here you can check your Cutoff and Top Ranklist of colleges will
+          update soon...
         </h2>
       </div>
       <form
         className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-7 rounded-xl max-md:w-3/5"
         onSubmit={onSubmit}
       >
-        <p className="text-5xl font-bold max-md:text-2xl text-white">Rank Form</p>
+        <p className="text-5xl font-bold max-md:text-2xl text-white">
+          Rank Form
+        </p>
         <div className="space-y-6">
           <div>
             <Input
@@ -166,31 +219,40 @@ const ChatBotForm = () => {
             )}
           </div>
           <div className="grid grid-flow-col gap-4 max-md:grid-flow-row max-sm:grid-flow-row">
-            <div>
-              <select
-                name="course"
-                className="select w-10/12 min-w-max border-green-500 text-black bg-white"
-                title="Select any Course"
-                value={formData.course}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="" disabled>
-                  Select any Course
-                </option>
-                <option value="ME">Mechanical</option>
-                <option value="EE">EEE</option>
-                <option value="EC">ECE</option>
-                <option value="CS">CSE</option>
-                <option value="CE">Civil</option>
-                <option value="AIDS">AIDS</option>
-                <option value="IM">IT</option>
-                <option value="MC">Mechatronics</option>
-                <option value="AIML">AIML</option>
-              </select>
-              {errors.course && (
-                <p className="text-red-500 text-sm">{errors.course}</p>
-              )}
+            <div className="grid grid-cols-1 gap-x-2 gap-y-4">
+              <div className="sm:col-span-2">
+                <Input
+                  type="text"
+                  label="Enter the Course Name"
+                  value={searchCourseQuery || formData.course}
+                  placeholder="Type to search for courses..."
+                  id="courseName"
+                  onChange={handleCourseInputChange}
+                />
+                {filteredCourses.length > 0 && (
+                  <ul className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-w-full sm:max-w-md w-full max-h-48 overflow-auto">
+                    {filteredCourses.map((course) => (
+                      <li
+                        key={course.courseCode}
+                        onClick={() => {
+                          console.log(course);
+                          handleCourseSelect(course);
+                        }}
+                        className="p-2 cursor-pointer hover:bg-gray-200 text-black transition-colors duration-150"
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor:
+                            selectedCourse?.courseCode === course.courseCode
+                              ? "lightgray"
+                              : "white",
+                        }}
+                      >
+                        {course.courseName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
             <div>
               <select
@@ -204,15 +266,15 @@ const ChatBotForm = () => {
                 <option value="" disabled>
                   Select your Community
                 </option>
-                <option value="cutOffOC">OC</option>
-                <option value="cutOffBC">BC</option>
-                <option value="cutOffBCM">BCM</option>
-                <option value="cutOffMBC">MBC</option>
-                <option value="cutOffMBCDNC">MBCDNC</option>
-                <option value="cutOffMBCV">MBCV</option>
-                <option value="cutOffSC">SC</option>
-                <option value="cutOffST">ST</option>
-                <option value="cutOffSCA">SCA</option>
+                <option value="rankOC">OC</option>
+                <option value="rankBC">BC</option>
+                <option value="rankBCM">BCM</option>
+                <option value="rankMBC">MBC</option>
+                <option value="rankMBCDNC">MBCDNC</option>
+                <option value="rankMBCV">MBCV</option>
+                <option value="rankSC">SC</option>
+                <option value="rankST">ST</option>
+                <option value="rankSCA">SCA</option>
               </select>
               {errors.community && (
                 <p className="text-red-500 text-sm">{errors.community}</p>
@@ -236,29 +298,37 @@ const ChatBotForm = () => {
               )}
             </div>
           </div>
-          <div>
-            <Input
-              id="search"
-              label="Select College"
-              type="text"
-              value={searchQuery}
-              placeholder="Enter college name"
-              onChange={handleSearchChange}
-              className="input-search"
-            />
-            {showDropdown && (
-              <ul className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-w-full sm:max-w-md w-full max-h-48 overflow-auto">
-                {filteredColleges.map((college) => (
-                  <li
-                    key={college}
-                    className="p-2 cursor-pointer hover:bg-gray-200 text-black transition-colors duration-150"
-                    onClick={() => handleDropdownSelect(college)}
-                  >
-                    {college}
-                  </li>
-                ))}
-              </ul>
-            )}
+          <div className="grid grid-cols-1 gap-x-2 gap-y-4">
+            <div className="sm:col-span-2">
+              <Input
+                type="text"
+                label="Enter the College"
+                value={searchQuery || formData.collegeName}
+                onChange={handleCollegeInputChange}
+                placeholder="Type to search for colleges..."
+                id="collegeName"
+              />
+              {filteredColleges.length > 0 && (
+                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-w-full sm:max-w-md w-full max-h-48 overflow-auto">
+                  {filteredColleges.map((college) => (
+                    <li
+                      key={college.collegeCode}
+                      onClick={() => handleCollegeSelect(college)}
+                      className="p-2 cursor-pointer hover:bg-gray-200 text-black transition-colors duration-150"
+                      style={{
+                        cursor: "pointer",
+                        backgroundColor:
+                          selectedCollege?.collegeCode === college.collegeCode
+                            ? "lightgray"
+                            : "white",
+                      }}
+                    >
+                      {college.collegeName}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
           <div>
             {isLoading ? (
@@ -279,7 +349,7 @@ const ChatBotForm = () => {
               </button>
             )}
           </div>
-          <div className="mt-4 flex justify-center space-x-4">
+          {/* <div className="mt-4 flex justify-center space-x-4">
             <button
               type="button"
               className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-150"
@@ -292,7 +362,7 @@ const ChatBotForm = () => {
             >
               No
             </button>
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

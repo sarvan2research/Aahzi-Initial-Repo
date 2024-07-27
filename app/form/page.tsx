@@ -10,7 +10,7 @@ import Image from "next/image";
 const ChatBotForm = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    mobileNumber: "", 
+    mobileNumber: "",
     physicsMarks: 0,
     chemistryMarks: 0,
     mathsMarks: 0,
@@ -51,13 +51,13 @@ const ChatBotForm = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const parsedFormData = formSchema.parse(formData);
 
       const { physicsMarks, chemistryMarks, mathsMarks, ...newFormData } =
         parsedFormData;
       const data = { ...newFormData, cutoffMarks };
-
+      console.log("Form values on submit", data);
       const userDetail = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify(data),
@@ -70,7 +70,6 @@ const ChatBotForm = () => {
         const userID = await userDetail.json();
         router.push(`/data?user=${userID}`);
       }
-      
     } catch (error) {
       if (error instanceof ZodError) {
         const newErrors: Record<string, string> = {};
@@ -153,7 +152,7 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 suppressHydrationWarning={true}
               >
-                <option disabled selected value=''>
+                <option disabled selected value="">
                   Select any Course
                 </option>
                 <option value="ME">Mechanical</option>
@@ -179,7 +178,7 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 suppressHydrationWarning={true}
               >
-                <option disabled selected value=''>
+                <option disabled selected value="">
                   Select your Community
                 </option>
                 <option value="cutOffOC">OC</option>
