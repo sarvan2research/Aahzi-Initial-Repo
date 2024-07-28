@@ -68,7 +68,9 @@ const ChatBotForm = () => {
     setFilteredCourses([]); // Hide the dropdown
   };
 
-  const handleCourseInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCourseInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setSearchCourseQuery(e.target.value);
     setFormData((prevData) => ({ ...prevData, course: e.target.value }));
   };
@@ -113,7 +115,9 @@ const ChatBotForm = () => {
     setFilteredColleges([]); // Hide the dropdown
   };
 
-  const handleCollegeInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCollegeInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setSearchQuery(e.target.value);
     setFormData((prevData) => ({ ...prevData, collegeName: e.target.value }));
   };
@@ -230,7 +234,6 @@ const ChatBotForm = () => {
               value={formData.name}
               placeholder="Enter your name"
               onChange={handleInputChange}
-              className="input-name"
             />
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name}</p>
@@ -245,7 +248,6 @@ const ChatBotForm = () => {
               placeholder="Enter your Mobile Number"
               maxLength={10}
               onChange={handleInputChange}
-              className="input-mobileNumber"
             />
             {errors.mobileNumber && (
               <p className="text-white text-sm">{errors.mobileNumber}</p>
@@ -338,7 +340,6 @@ const ChatBotForm = () => {
                 onChange={handleInputChange}
                 placeholder="Enter your rank"
                 maxLength={3}
-                className="input-rank"
               />
               {errors.rank && (
                 <p className="text-red-500 text-sm">{errors.rank}</p>
