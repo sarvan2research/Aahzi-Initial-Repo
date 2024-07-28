@@ -9,7 +9,6 @@ export async function POST(req: Request) {
   try {
     const body = await req?.json();
     const { userID } = body;
-    console.log(userID);
 
     const users = await prisma.guestRankUser.findUnique({
       where: {
@@ -37,10 +36,6 @@ export async function POST(req: Request) {
         },
       },
     });
-
-if(!colleges){
-  return NextResponse.json({ error: 'As per your entered college, course and rank details requested college is might not be available as per our analysis.' });
-}
 
     console.log("colleges :>> ", colleges);
     return NextResponse.json(colleges);

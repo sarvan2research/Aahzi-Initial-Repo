@@ -1,5 +1,15 @@
 import { z, number, string } from "zod";
 
+interface Course{
+  courseCode:string
+  courseName:string
+}
+
+interface College{
+  collegeCode:string
+  collegeName:string
+}
+
 const formSchema = z.object({
   name: string().max(30),
   mobileNumber: string().refine((value) => /^\d{10}$/.test(value)),
@@ -17,3 +27,5 @@ const formSchema = z.object({
 });
 
 export default formSchema;
+
+

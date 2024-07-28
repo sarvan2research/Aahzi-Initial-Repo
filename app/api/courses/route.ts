@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import path from "path";
 import fs from 'fs';
 
-interface course{
+interface Course{
   courseCode:string
   courseName:string
 }
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   }
   try {
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const courses = JSON.parse(fileContents);
+    const courses:Course[] = JSON.parse(fileContents);
     return NextResponse.json(courses);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch courses',message:error });

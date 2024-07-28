@@ -22,10 +22,7 @@ export async function POST(req: Request, res:Response) {
     });
 
     const userID = userRankId?.id;
-    // console.log(userID)
     const encryptedUserID = btoa(userID);
-    // console.log(encryptedUserID);
-
     return NextResponse.json(encryptedUserID);
   } catch (error: any) {
     return NextResponse.json("Prisma Database Connection", error);
