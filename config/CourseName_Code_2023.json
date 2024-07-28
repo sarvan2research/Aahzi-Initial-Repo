@@ -1,0 +1,396 @@
+[{
+  "courseCode": "AU",
+  "courseName": "AUTOMOBILE ENGINEERING"
+},
+{
+  "courseCode": "MA",
+  "courseName": "MATERIAL SCIENCE AND ENGINEERING (SS)"
+},
+{
+  "courseCode": "CR",
+  "courseName": "CERAMIC TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "XS",
+  "courseName": "NA: COMPUTER SCIENCE AND ENGINEERING (TAMIL)"
+},
+{
+  "courseCode": "SF",
+  "courseName": "SAFETY AND FIRE ENGINEERING"
+},
+{
+  "courseCode": "AT",
+  "courseName": "NA: ARTIFICIAL INTELLIGENCE AND DATA SCIENCE (SS)"
+},
+{
+  "courseCode": "XM",
+  "courseName": "MECHANICAL ENGINEERING (TAMIL MEDIUM)"
+},
+{
+  "courseCode": "MG",
+  "courseName": "MECHATRONICS (SS)"
+},
+{
+  "courseCode": "CM",
+  "courseName": "COMPUTER SCIENCE AND ENGINEERING (SS)"
+},
+{
+  "courseCode": "IC",
+  "courseName": "INSTRUMENTATION AND CONTROL ENGINEERING"
+},
+{
+  "courseCode": "FD",
+  "courseName": "FOOD TECHNOLOGY"
+},
+{
+  "courseCode": "CT",
+  "courseName": "COMPUTER TECHNOLOGY"
+},
+{
+  "courseCode": "GI",
+  "courseName": "GEO-INFORMATICS"
+},
+{
+  "courseCode": "SE",
+  "courseName": "INFORMATION SCIENCE AND ENGINEERING"
+},
+{
+  "courseCode": "ET",
+  "courseName": "ELECTRONICS AND TELECOMMUNICATION ENGG."
+},
+{
+  "courseCode": "AM",
+  "courseName": "COMPUTER SCIENCE AND ENGINEERING (AI AND MACHINE LEARNING)"
+},
+{
+  "courseCode": "AD",
+  "courseName": "ARTIFICIAL INTELLIGENCE AND DATA SCIENCE"
+},
+{
+  "courseCode": "SB",
+  "courseName": "CSE(INTERNET OF THINGS AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY)`"
+},
+{
+  "courseCode": "BC",
+  "courseName": "BIO TECHNOLOGY AND BIO CHEMICAL ENGINEERING"
+},
+{
+  "courseCode": "MR",
+  "courseName": "MARINE ENGINEERING"
+},
+{
+  "courseCode": "CB",
+  "courseName": "COMPUTER SCIENCE AND BUSINESS SYSTEM"
+},
+{
+  "courseCode": "FS",
+  "courseName": "FOOD TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "TS",
+  "courseName": "COMPUTER SCIENCE AND TECHNOLOGY"
+},
+{
+  "courseCode": "BS",
+  "courseName": "BIO TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "IS",
+  "courseName": "INDUSTRIAL BIO-TECHNOLOGY(SS)"
+},
+{
+  "courseCode": "SC",
+  "courseName": "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
+},
+{
+  "courseCode": "MF",
+  "courseName": "MECHANICAL ENGINEERING(SS)"
+},
+{
+  "courseCode": "CH",
+  "courseName": "CHEMICAL ENGINEERING"
+},
+{
+  "courseCode": "IE",
+  "courseName": "INDUSTRIAL ENGINEERING"
+},
+{
+  "courseCode": "MI",
+  "courseName": "MINING ENGINEERING"
+},
+{
+  "courseCode": "CE",
+  "courseName": "CIVIL ENGINEERING"
+},
+{
+  "courseCode": "EI",
+  "courseName": "ELECTRONICS AND INSTRUMENTATION ENGINEERING"
+},
+{
+  "courseCode": "IB",
+  "courseName": "INDUSTRIAL BIO-TECHNOLOGY"
+},
+{
+  "courseCode": "TX",
+  "courseName": "TEXTILE TECHNOLOGY"
+},
+{
+  "courseCode": "LE",
+  "courseName": "LEATHER TECHNOLOGY"
+},
+{
+  "courseCode": "IY",
+  "courseName": "INSTRUMENTATION AND CONTROL ENGINEERING (SS)"
+},
+{
+  "courseCode": "MY",
+  "courseName": "METALLURGICAL ENGINEERING (SS)"
+},
+{
+  "courseCode": "EM",
+  "courseName": "ELECTRONICS AND COMMUNICATION ENGG. (SS)"
+},
+{
+  "courseCode": "BY",
+  "courseName": "BIO- MEDICAL ENGINEERING (SS)"
+},
+{
+  "courseCode": "IM",
+  "courseName": "INFORMATION TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "MD",
+  "courseName": "MEDICAL ELECTRONICS ENGG."
+},
+{
+  "courseCode": "CO",
+  "courseName": "COMPUTER AND COMMUNICATION ENGINEERING"
+},
+{
+  "courseCode": "PM",
+  "courseName": "PHARMACEUTICAL TECHNOLOGY(SS)"
+},
+{
+  "courseCode": "EY",
+  "courseName": "ELEC. AND ELECTRONICS ENGG (SS)"
+},
+{
+  "courseCode": "EC",
+  "courseName": "ELECTRONICS AND COMMUNICATION ENGINEERING"
+},
+{
+  "courseCode": "IT",
+  "courseName": "INFORMATION TECHNOLOGY"
+},
+{
+  "courseCode": "CN",
+  "courseName": "CIVIL ENGINEERING (SS)"
+},
+{
+  "courseCode": "CZ",
+  "courseName": "CIVIL AND STRUCTURAL ENGINEERING"
+},
+{
+  "courseCode": "CL",
+  "courseName": "CHEMICAL ENGINEERING (SS)"
+},
+{
+  "courseCode": "CJ",
+  "courseName": "M.TECH. COMPUTER SCIENCE AND ENGINEERING (INTEGRATED 5 YEARS)"
+},
+{
+  "courseCode": "EE",
+  "courseName": "ELECTRICAL AND ELECTRONICS ENGINEERING"
+},
+{
+  "courseCode": "HT",
+  "courseName": "HANDLOOM AND TEXTILE TECHNOLOGY"
+},
+{
+  "courseCode": "CC",
+  "courseName": "CHEMICAL AND ELECTRO CHEMICAL ENGINEERING (SS)"
+},
+{
+  "courseCode": "CW",
+  "courseName": "COMPUTER SCIENCE AND BUSINESS SYSTEM (SS)"
+},
+{
+  "courseCode": "RA",
+  "courseName": "ROBOTICS AND AUTOMATION (SS)"
+},
+{
+  "courseCode": "TT",
+  "courseName": "TEXTILE TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "MN",
+  "courseName": "MANUFACTURING ENGINEERING"
+},
+{
+  "courseCode": "MZ",
+  "courseName": "MECHATRONICS ENGINEERING"
+},
+{
+  "courseCode": "RM",
+  "courseName": "ROBOTICS AND AUTOMATION"
+},
+{
+  "courseCode": "BM",
+  "courseName": "BIO- MEDICAL ENGINEERING"
+},
+{
+  "courseCode": "MU",
+  "courseName": "MECHANICAL AND AUTOMATION ENGINEERING"
+},
+{
+  "courseCode": "AP",
+  "courseName": "APPAREL TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "CS",
+  "courseName": "COMPUTER SCIENCE AND ENGINEERING"
+},
+{
+  "courseCode": "PT",
+  "courseName": "PRINTING AND PACKAGING TECHNOLOGY"
+},
+{
+  "courseCode": "MM",
+  "courseName": "MECHANICAL ENGINEERING (MANUFACTURING)"
+},
+{
+  "courseCode": "RP",
+  "courseName": "RUBBER AND PLASTIC TECHNOLOGY"
+},
+{
+  "courseCode": "AS",
+  "courseName": "AUTOMOBILE ENGINEERING (SS)"
+},
+{
+  "courseCode": "ME",
+  "courseName": "MECHANICAL ENGINEERING"
+},
+{
+  "courseCode": "ES",
+  "courseName": "ELECTRICAL AND ELECTRONICS (SANDWICH) (SS)"
+},
+{
+  "courseCode": "MS",
+  "courseName": "MECHANICAL ENGINEERING (SANDWICH) (SS)"
+},
+{
+  "courseCode": "MC",
+  "courseName": "MECHATRONICS"
+},
+{
+  "courseCode": "AO",
+  "courseName": "AEROSPACE ENGINEERING"
+},
+{
+  "courseCode": "IN",
+  "courseName": "INDUSTRIAL ENGINEERING AND MANAGEMENT"
+},
+{
+  "courseCode": "CG",
+  "courseName": "NA: Computer Science and Engineering (Artificial Intelligence and Machine Learning) (SS)"
+},
+{
+  "courseCode": "FT",
+  "courseName": "FASHION TECHNOLOGY"
+},
+{
+  "courseCode": "MT",
+  "courseName": "METALLURGICAL ENGINEERING"
+},
+{
+  "courseCode": "CD",
+  "courseName": "NA: COMPUTER SCIENCE AND DESIGN"
+},
+{
+  "courseCode": "CF",
+  "courseName": "NA: COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE)"
+},
+{
+  "courseCode": "BT",
+  "courseName": "BIO TECHNOLOGY"
+},
+{
+  "courseCode": "PP",
+  "courseName": "PETROLEUM ENGINEERING AND TECHNOLOGY (SS)"
+},
+{
+  "courseCode": "PH",
+  "courseName": "PHARMACEUTICAL TECHNOLOGY"
+},
+{
+  "courseCode": "CY",
+  "courseName": "CYBER SECURITY"
+},
+{
+  "courseCode": "AE",
+  "courseName": "AERONAUTICAL ENGINEERING"
+},
+{
+  "courseCode": "AL",
+  "courseName": "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+},
+{
+  "courseCode": "PS",
+  "courseName": "PRODUCTION ENGINEERING (SANDWICH) (SS)"
+},
+{
+  "courseCode": "BP",
+  "courseName": "NA: B.Plan"
+},
+{
+  "courseCode": "AG",
+  "courseName": "AGRICULTURAL ENGINEERING"
+},
+{
+  "courseCode": "PE",
+  "courseName": "PETROLEUM ENGINEERING"
+},
+{
+  "courseCode": "PR",
+  "courseName": "PRODUCTION ENGINEERING"
+},
+{
+  "courseCode": "TC",
+  "courseName": "TEXTILE CHEMISTRY"
+},
+{
+  "courseCode": "PD",
+  "courseName": "PETROCHEMICAL ENGINEERING"
+},
+{
+  "courseCode": "PC",
+  "courseName": "PETRO CHEMICAL TECHNOLOGY"
+},
+{
+  "courseCode": "CI",
+  "courseName": "NA: Computer Science and Engineering (Internet of Things)"
+},
+{
+  "courseCode": "EN",
+  "courseName": "ENVIRONMENTAL ENGINEERING"
+},
+{
+  "courseCode": "PA",
+  "courseName": "PLASTIC TECHNOLOGY"
+},
+{
+  "courseCode": "PN",
+  "courseName": "PRODUCTION ENGINEERING (SS)"
+},
+{
+  "courseCode": "MO",
+  "courseName": "MECHANICAL AND MECHATRONICS ENGINEERING (ADDITIVE MANUFACTURING)"
+},
+{
+  "courseCode": "XC",
+  "courseName": "CIVIL ENGINEERING (TAMIL MEDIUM)"
+},
+{
+  "courseCode": "FY",
+  "courseName": "FASHION TECHNOLOGY (SS)"
+}]

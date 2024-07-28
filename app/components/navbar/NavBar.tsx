@@ -5,6 +5,7 @@ import useToggle from "../../api/hooks/useState";
 
 const Navbar = () => {
   const [toggle, setToggle] = useToggle(false);
+
   return (
     <div>
       <div className="navbar bg-blue-500 shadow-xl">
@@ -32,24 +33,28 @@ const Navbar = () => {
         </div>
         <div className="flex-auto gap-6">
           <div className="flex justify-evenly min-w-full max-sm:hidden">
-            <Link href={"/"} className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600">
+            <Link
+              href={"/"}
+              className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600"
+            >
               Aahzi
             </Link>
-            <Link href={"/form"} className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600">
+            <Link
+              href={"/form"}
+              className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600"
+            >
               Form
             </Link>
-           
+            <Link
+              href={"/rank-form"}
+              className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600"
+            >
+              Rank Form
+            </Link>
           </div>
         </div>
         <div className="flex-none gap-2">
-          <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-              disabled={true}
-            />
-          </div>
+          <div className="form-control"></div>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -83,6 +88,12 @@ const Navbar = () => {
               className="block text-white hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
             >
               Form
+            </Link>
+            <Link
+              href={"/rank-form"}
+              className="block text-white hover:bg-slate-200 w-fit p-2 hover:text-rose-500"
+            >
+              Rank Form
             </Link>
           </div>
         </div>

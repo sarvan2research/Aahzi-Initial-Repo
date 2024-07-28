@@ -34,7 +34,7 @@ const Input = ({
     <div>
       <label
         htmlFor={id}
-        className="block text-base font-medium leading-6 text-gray-900"
+        className="block text-base font-medium leading-6 text-white"
       >
         {label}
       </label>
@@ -45,7 +45,7 @@ const Input = ({
         placeholder={placeholder}
         value={value !== undefined ? value.toString() : ''}
         onChange={onChange}
-        className="mt-2 block w-full rounded-md border-0 p-1.5 text-gray-900 
+        className="mt-2 block w-full rounded-md border-0 p-1.5 text-black bg-white
         shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 
         placeholder:text-base focus:ring-2 focus:ring-inset focus:ring-indigo-600 
         max-sm:min-w-36 max-md:min-w-36 "

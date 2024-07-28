@@ -72,3 +72,14 @@ model Rank {
   collegeName     String
   rankDetailsList RankRankDetailsList[]
 }
+
+model GuestRankUser {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  mobileNumber String
+  community    String
+  course       String
+  collegeName  String
+  rank         Float
+  createdAt    DateTime? @db.Date
+}

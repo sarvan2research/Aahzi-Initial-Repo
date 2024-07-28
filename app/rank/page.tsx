@@ -57,7 +57,7 @@ const ChatBotForm = () => {
       const { physicsMarks, chemistryMarks, mathsMarks, ...newFormData } =
         parsedFormData;
       const data = { ...newFormData, cutoffMarks };
-      console.log("Form values on submit", data);
+
       const userDetail = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify(data),
@@ -111,7 +111,7 @@ const ChatBotForm = () => {
         className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-7 rounded-xl max-md:w-3/5"
         onSubmit={onSubmit}
       >
-        <p className="text-5xl font-bold max-md:text-2xl text-white">Form</p>
+        <p className="text-5xl font-bold max-md:text-2xl text-white">Rank</p>
         <div className="space-y-6">
           <div>
             <Input
