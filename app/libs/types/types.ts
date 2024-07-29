@@ -1,11 +1,4 @@
-interface ICollegeDetails {
-  id: string;
-  collegeCode: string;
-  collegeName: string;
-  cutoffDetailsList: cutoffDetailsList[];
-}
-
-type cutoffDetailsList = {
+type CutoffDetailsList = {
   courseCode: string;
   courseName: string;
   year: number;
@@ -20,8 +13,16 @@ type cutoffDetailsList = {
   cutOffSCA: any;
 };
 
+interface ICollegeDetails {
+  id?: string;
+  collegeCode: string;
+  collegeName: string;
+  cutoffDetailsList?: CutoffDetailsList[]; // Make this optional if it might not be present
+}
+
 interface ICollegeTable {
   data: ICollegeDetails[];
+  courseOffered: boolean;
 }
 
 export type { ICollegeDetails, ICollegeTable };
