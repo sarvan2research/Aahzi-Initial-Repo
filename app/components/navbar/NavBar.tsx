@@ -40,16 +40,10 @@ const Navbar = () => {
               Aahzi
             </Link>
             <Link
-              href={"/form"}
-              className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600"
-            >
-              Form
-            </Link>
-            <Link
               href={"/rank-form"}
               className="text-xl text-white font-bold tracking-wider hover:text-lime-400 hover:border-b-2 border-indigo-600"
             >
-              Rank Form
+              KYC(Know Your College)
             </Link>
           </div>
         </div>

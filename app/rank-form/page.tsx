@@ -223,7 +223,7 @@ const ChatBotForm = () => {
         onSubmit={onSubmit}
       >
         <p className="text-5xl font-bold max-md:text-2xl text-white">
-          Rank Form
+          KYC(Know Your College)
         </p>
         <div className="space-y-6">
           <div>

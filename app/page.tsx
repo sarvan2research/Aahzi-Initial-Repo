@@ -31,7 +31,7 @@ export default function Home() {
           </p>
  
           <Link className="p-4 duration-500 font-bold rounded-lg text-2xl tracking-wider shadow-2xl bg-gradient-to-r from-indigo-400 to-cyan-400
-          text-white blur-sm hover:blur-0 max-sm:blur-0 max-md:blur-0" href={"/form"}>
+          text-white blur-sm hover:blur-0 max-sm:blur-0 max-md:blur-0" href={"/rank-form"}>
             Get Started
           </Link>
         </div>
