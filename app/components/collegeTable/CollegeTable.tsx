@@ -1,6 +1,12 @@
-import { ICollegeDetails, ICollegeTable } from "@/app/libs/types/types";
+import { ICollegeTable } from "@/app/libs/types/types";
 
-const CollegeTable = ({ data }: ICollegeTable) => {
+const CollegeTable = ({ data, courseOffered }: ICollegeTable) => {
+  console.log("Data received:", data);
+
+  // Check if any college in the data array has a non-empty cutoffDetailsList
+  const hasData = data.some(college => college.cutoffDetailsList && college.cutoffDetailsList.length > 0);
+  console.log("Has data:", hasData);
+
   return (
     <div className="">
       <div role="alert" className="alert">
@@ -27,47 +33,17 @@ const CollegeTable = ({ data }: ICollegeTable) => {
       </div>
 
       <div className="flex justify-center">
-        {data && data.length > 0 ? (
-          <table className="table-auto w-2/4 bg-emerald-200 border-collapse border border-gray-300 rounded-lg overflow-hidden shadow-lg">
-            <caption className="table-caption mt-5 mb-4 text-base text-white-900 text-center">
-              The following Colleges were listed based on a trusted Statistical
-              data analyzed by Doctorates and Trained professors
-            </caption>
-            <thead className="bg-emerald-300">
-              <tr>
-                <th className="p-4 text-base text-cyan-600 border border-gray-200">
-                  College Code
-                </th>
-                <th className="p-4 text-base text-cyan-600 border border-gray-200">
-                  College Name
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item: ICollegeDetails) => (
-                <tr
-                  key={item?.id}
-                  className="odd:bg-emerald-100 even:bg-emerald-200"
-                >
-                  <td className="p-4 border border-gray-200">
-                    {item?.collegeCode}
-                  </td>
-                  <td
-                    className="p-4 max-w-sm whitespace-nowrap overflow-hidden text-ellipsis hover:cursor-pointer border border-gray-200"
-                    title={item?.collegeName}
-                  >
-                    {item?.collegeName}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {!courseOffered ? (
+          <div className="text-yellow-500 text-center">
+            Your entered details do not match any given college course.
+          </div>
+        ) : hasData ? (
+          <div className="text-green-500 text-center">
+            Yay! Your chances of getting into this college are high.
+          </div>
         ) : (
-          <div className="flex items-center justify-center w-full p-6 bg-red-100 border border-red-300 text-red-800 rounded-lg shadow-md">
-            <p className="text-center">
-              Based on the given data, the chances of getting into this college
-              for the specified course and community are low.
-            </p>
+          <div className="text-red-500 text-center">
+            Oops! Your chance of getting into this college is low.
           </div>
         )}
       </div>

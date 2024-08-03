@@ -19,10 +19,11 @@ const DataPage = () => {
   const [collegeData, setCollegeData] = useState<any | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [courseOffered, setCourseOffered] = useState<boolean>(false);
 
   useEffect(() => {
     const userID: any = searchParams.get("user");
-    // Function to validate if the string is a valid base64 string
+
     const isValidBase64 = (str: string) => {
       const base64Regex =
         /^(?:[A-Za-z\d+\/]{4})*(?:[A-Za-z\d+\/]{2}==|[A-Za-z\d+\/]{3}=)?$/;
@@ -34,7 +35,6 @@ const DataPage = () => {
       try {
         decryptedUserID = atob(userID);
       } catch (error) {
-        //console.error("Failed to decode base64 string:", error);
         setErrorMessage(
           "The provided user ID is invalid. Please check the link and try again."
         );
@@ -43,7 +43,6 @@ const DataPage = () => {
         return;
       }
     } else {
-      //console.error("Invalid base64 string");
       setErrorMessage(
         "The provided user ID is invalid. Please check the link and try again."
       );
@@ -64,24 +63,24 @@ const DataPage = () => {
         const result = await response?.json();
         return result;
       } catch (error) {
-        //console.error("Error fetching data:", error);
         throw new Error(
           "There was an error fetching your data. Please try again later."
         );
-        throw error;
       }
     };
+
     fetchRankData()
       .then((result) => {
         setCollegeData(result);
+        setCourseOffered(result.length > 0); // Assuming that courseOffered is true if data is returned
         setIsLoading(false);
       })
       .catch((error) => {
-        //console.error("Error fetching data:", error);
-        throw new Error(
+        setErrorMessage(
           "There was an error fetching your data. Please try again later."
         );
         setCollegeData([]);
+        setIsLoading(false);
       });
   }, [searchParams]);
 
@@ -94,7 +93,7 @@ const DataPage = () => {
           <p>{errorMessage}</p>
         </div>
       ) : (
-        <CollegeTable data={collegeData} />
+        <CollegeTable data={collegeData} courseOffered={courseOffered} />
       )}
     </div>
   );
