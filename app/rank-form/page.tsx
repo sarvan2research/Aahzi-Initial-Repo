@@ -198,31 +198,35 @@ const ChatBotForm = () => {
   });
 
   return (
-    <div className="mt-6 grid place-items-center grid-flow-col gap-16 max-md:grid-flow-row m-2 max-md:gap-4">
-      <div className="grid place-items-center">
-        <h2 className="text-5xl font-bold text-blue-400 max-md:text-2xl mb-4">
+    <div className="p-10 min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 flex flex-col justify-center items-center">
+      <div className="grid place-items-center grid-cols-1 lg:grid-cols-2 gap-16 max-md:grid-flow-row m-2 max-md:gap-4 bg-white rounded-3xl shadow-lg p-10">
+
+      
+      <div className="grid place-items-center text-center">
+        <h2 className="text-5xl font-extrabold text-blue-600 max-md:text-3xl mb-6">
           Welcome to Aahzi
         </h2>
         <Image
           src="/chatbot-welocme.jpg"
           alt="chatbot-welcome"
           title="chatbot-welcome"
-          className="max-w-sm rounded-lg max-sm:w-6/12 max-md:w-6/12"
+          className="max-w-sm rounded-xl max-sm:w-6/12 max-md:w-6/12 transition-transform duration-300 transform hover:scale-105"
           width={500}
           height={500}
         />
-      </div>
-      <div>
-        <h2 className="font-bold leading-loose hidden max-md:block text-sm tracking-widest">
+      
+      
+        <h2 className="font-bold leading-loose hidden max-md:block text-sm tracking-widest text-black">
           Here you can check your Cutoff and Top Ranklist of colleges will
           update soon...
         </h2>
       </div>
+      
       <form
-        className="grid place-items-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-7 rounded-xl max-md:w-3/5"
+        className="w-full bg-gradient-to-r from-indigo-500 to-cyan-500 p-8 rounded-2xl shadow-xl"
         onSubmit={onSubmit}
       >
-        <p className="text-5xl font-bold max-md:text-2xl text-white">
+        <p className="text-4xl font-bold text-white mb-8 text-center">
           Rank Form
         </p>
         <div className="space-y-6">
@@ -234,6 +238,7 @@ const ChatBotForm = () => {
               value={formData.name}
               placeholder="Enter your name"
               onChange={handleInputChange}
+              
             />
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name}</p>
@@ -395,7 +400,7 @@ const ChatBotForm = () => {
               <p className="text-red-500 text-sm">{errors.disclaimer}</p>
             )}
           </div>
-          <div>
+          <div className="text-center">
             {isLoading ? (
               <button
                 className="h-12 rounded-lg bg-slate-500 text-white w-full text-lg"
@@ -406,7 +411,7 @@ const ChatBotForm = () => {
               </button>
             ) : (
               <button
-                className="btn btn-neutral text-white w-full text-lg"
+                className="align-middle px-8 py-4 text-2xl font-bold rounded-full shadow-2xl bg-gradient-to-r from-indigo-700 via-purple-700 to-cyan-700 text-white hover:bg-gradient-to-l hover:from-cyan-700 hover:to-indigo-700 transform hover:scale-110 transition-transform duration-700 ease-in-out max-sm:w-full animate-fade-in-up animation-delay-400"
                 title="submit"
                 type="submit"
               >
@@ -414,8 +419,13 @@ const ChatBotForm = () => {
               </button>
             )}
           </div>
-        </div>
+          </div>
+          
+        
+        
       </form>
+      
+    </div>
     </div>
   );
 };

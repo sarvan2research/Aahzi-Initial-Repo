@@ -86,7 +86,7 @@ const DataPage = () => {
   }, [searchParams]);
 
   return (
-    <div className="mt-8">
+    <div>
       {isLoading ? (
         <CollegeTableLoading />
       ) : errorMessage ? (

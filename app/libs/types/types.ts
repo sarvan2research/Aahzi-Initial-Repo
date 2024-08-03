@@ -1,8 +1,11 @@
+import { collegeDetails } from "@/app/libs/collegeDetails";
+
 interface ICollegeDetails {
   id: string;
   collegeCode: string;
   collegeName: string;
   cutoffDetailsList: cutoffDetailsList[];
+  courseOffered(courseCode: string): boolean; // New method
 }
 
 type cutoffDetailsList = {
@@ -19,9 +22,8 @@ type cutoffDetailsList = {
   cutOffMBC: any;
   cutOffSCA: any;
 };
-
 interface ICollegeTable {
   data: ICollegeDetails[];
 }
 
-export type { ICollegeDetails, ICollegeTable };
+export type { ICollegeDetails, ICollegeTable }

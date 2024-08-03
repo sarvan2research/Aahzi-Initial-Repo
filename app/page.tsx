@@ -1,48 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
+
 export default function Home() {
   return (
-    <div className="p-10 min-h-screen bg-gradient-to-r from-indigo-400 to-cyan-400 max-sm:flex max-sm:flex-col-reverse">
-      <div className="grid place-items-center grid-flow-col max-md:grid-flow-row max-sm:grid-flow-row max-sm:gap-8 max-md:gap-8">
-        <Image
-          src="/old-approach.jpg"
-          alt="old-approach-method"
-          title="old-approach-method"
-          className="h-3/6 rounded-lg shadow-2xl max-sm:w-6/12 max-md:w-6/12 max-sm:h-5/6 max-md:h-5/6"
-          width={500}
-          height={500}
-        />
-        <div className="grid place-items-center gap-2 p-2">
-          <h1 className="text-center text-4xl font-bold leading-normal drop-shadow-xl text-emerald-100 tracking-wider">
-            Hello there!
+    <div className="p-10 min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 flex flex-col justify-center items-center">
+      <div className="grid grid-cols-2 gap-12 max-md:grid-cols-1 max-sm:gap-10 max-sm:flex max-sm:flex-col-reverse items-center">
+        {/* Old Approach Image */}
+        <div className="relative group max-md:w-full max-sm:w-full transform hover:scale-105 transition-transform duration-700 ease-in-out">
+          <Image
+            src="/old-approach.jpg"
+            alt="old-approach-method"
+            title="old-approach-method"
+            className="rounded-lg shadow-2xl max-sm:w-full"
+            width={500}
+            height={500}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 via-purple-700  opacity-0 group-hover:opacity-90 transition-opacity duration-700 ease-in-out rounded-lg"></div>
+        </div>
+
+        {/* Text and Get Started Button */}
+        <div className="grid place-items-center text-center gap-8 p-4 max-sm:p-0">
+          <h1 className="text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-lime-300 via-emerald-300 to-teal-300 tracking-widest drop-shadow-2xl max-sm:text-5xl max-sm:tracking-wide animate-fade-in-up">
+            Hello Future Engineers!
             <br />
             Welcome to Aahzi
           </h1>
-          <p className="p-4 text-justify text-white leading-7 tracking-wider max-md:tracking-wide">
-            Aahzi, an educational consultancy, offers optimal career paths for
-            students who have completed their schooling. This service is
-            delivered by a team of seasoned educators and industry specialists.
-            Aahzi assists by recommending suitable courses, institutions,
-            universities, study locations, and relevant information aligned with
-            current technology trends and job market demands. The portal is
-            designed to be exceptionally user-friendly, eliminating the need for
-            expertise in college education or reliance on additional educational
-            consultants. Aahzi serves as a comprehensive educational consultant.
+          <p className="text-xl text-white leading-8 tracking-widest drop-shadow-lg max-md:tracking-normal max-sm:text-lg max-sm:p-4 animate-fade-in-up animation-delay-200">
+            Aahzi, an educational consultancy, offers optimal career paths for students who have completed their schooling. This service is delivered by a team of seasoned educators and industry specialists. Aahzi assists by recommending suitable courses, institutions, universities, study locations, and relevant information aligned with current technology trends and job market demands. The portal is designed to be exceptionally user-friendly, eliminating the need for expertise in college education or reliance on additional educational consultants. Aahzi serves as a comprehensive educational consultant.
           </p>
- 
-          <Link className="p-4 duration-500 font-bold rounded-lg text-2xl tracking-wider shadow-2xl bg-gradient-to-r from-indigo-400 to-cyan-400
-          text-white blur-sm hover:blur-0 max-sm:blur-0 max-md:blur-0" href={"/form"}>
+          <Link
+            className="px-8 py-4 text-2xl font-bold rounded-full shadow-2xl bg-gradient-to-r from-indigo-700 via-purple-700 to-cyan-700 text-white hover:bg-gradient-to-l hover:from-cyan-700 hover:to-indigo-700 transform hover:scale-110 transition-transform duration-700 ease-in-out max-sm:w-full animate-fade-in-up animation-delay-400"
+            href="/rank-form"
+          >
             Get Started
           </Link>
         </div>
-        <Image
-          src="/new-approach.jpg"
-          alt="new-approach-method"
-          title="new-approach-method"
-          className="h-3/6 rounded-lg shadow-2xl max-sm:w-6/12 max-md:w-6/12 max-sm:h-5/6 max-md:h-5/6"
-          width={500}
-          height={100}
-        />
+
+        {/* New Approach Image */}
+        
       </div>
     </div>
   );
