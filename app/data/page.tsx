@@ -5,9 +5,9 @@ import CollegeTable from "@/app/components/collegeTable/CollegeTable";
 import { CollegeTableLoading } from "@/app/components/loading/CollegeTableLoading";
 
 const Data = () => {
-  return(
-    <Suspense fallback={<CollegeTableLoading/>}>
-      <DataPage/>
+  return (
+    <Suspense fallback={<CollegeTableLoading />}>
+      <DataPage />
     </Suspense>
   );
 };
@@ -54,11 +54,14 @@ const DataPage = () => {
 
   return (
     <div className="mt-8">
-        {isLoading ? (
-          <CollegeTable data={collegeData} />
-        ) : (
-          <CollegeTableLoading />
-        )}
+      {isLoading ? (
+        <CollegeTable
+          data={collegeData?.data || []}
+          error={collegeData?.error || null}
+        />
+      ) : (
+        <CollegeTableLoading />
+      )}
     </div>
   );
-} 
+};
