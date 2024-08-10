@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import CollegeTable from "@/app/components/collegeTable/CollegeTable";
 import { CollegeTableLoading } from "@/app/components/loading/CollegeTableLoading";
+import { ICollegeDetails, ICollegeTable } from "../libs/types/types";
 
 const Data = () => {
   return (
@@ -16,7 +17,7 @@ export default Data;
 
 const DataPage = () => {
   const searchParams = useSearchParams();
-  const [collegeData, setCollegeData] = useState<any | undefined>(undefined);
+  const [collegeData, setCollegeData] = useState<ICollegeTable | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -38,7 +39,7 @@ const DataPage = () => {
         setErrorMessage(
           "The provided user ID is invalid. Please check the link and try again."
         );
-        setCollegeData([]);
+        setCollegeData(null);
         setIsLoading(false);
         return;
       }
@@ -47,12 +48,12 @@ const DataPage = () => {
       setErrorMessage(
         "The provided user ID is invalid. Please check the link and try again."
       );
-      setCollegeData([]);
+      setCollegeData(null);
       setIsLoading(false);
       return;
     }
 
-    const fetchRankData = async (): Promise<any[]> => {
+    const fetchRankData = async (): Promise<ICollegeTable> => {
       try {
         const response = await fetch("/api/userRankID", {
           method: "POST",
@@ -61,32 +62,44 @@ const DataPage = () => {
             "Content-Type": "application/json",
           },
         });
+
         const result = await response?.json();
-        return result;
+        //console.log("DB Results", result);
+        // Destructure the response and map the data
+        const { colleges, error } = result;
+
+        // Ensure colleges data is in the correct format
+
+        const formattedData = colleges?.map((college: any) => ({
+          collegeCode: college.collegeCode.toString(),
+          collegeName: college.collegeName,
+        }));
+
+        return { data: formattedData || [], error: error || null };
       } catch (error) {
         //console.error("Error fetching data:", error);
         throw new Error(
           "There was an error fetching your data. Please try again later."
         );
-        throw error;
       }
     };
     fetchRankData()
       .then((result) => {
+        //console.log("From collegeData", result);
         setCollegeData(result);
         setIsLoading(false);
       })
       .catch((error) => {
         //console.error("Error fetching data:", error);
+        setCollegeData(null);
         throw new Error(
           "There was an error fetching your data. Please try again later."
         );
-        setCollegeData([]);
       });
   }, [searchParams]);
 
   return (
-    <div className="mt-8">
+    <div>
       {isLoading ? (
         <CollegeTableLoading />
       ) : errorMessage ? (
@@ -94,7 +107,10 @@ const DataPage = () => {
           <p>{errorMessage}</p>
         </div>
       ) : (
-        <CollegeTable data={collegeData} />
+        <CollegeTable
+          data={collegeData?.data || []}
+          error={collegeData?.error || null}
+        />
       )}
     </div>
   );
