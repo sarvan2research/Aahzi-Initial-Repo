@@ -19,6 +19,30 @@ export async function POST(req: Request) {
       
       return NextResponse.json({ error: 'No matching results found, issue related to form submission.Please re-submit rank form' });
     }
+
+    const courseExists = await prisma.rank.findMany({
+      select:{
+        collegeCode:true,
+        collegeName:true,
+      },
+      where: {
+        collegeName: users!.collegeName,
+        rankDetailsList: {
+          some: {
+            courseName: users!.course,
+          },
+        },
+      },
+    });
+
+    if(!(courseExists.length>0)){
+      //console.log("courseExist :>> ", courseExists);
+      const courseError={courseExists,"error":"No Matching Colleges"}
+      return NextResponse.json(courseError)
+    }
+
+
+
     const colleges = await prisma.rank.findMany({
       select:{
         collegeCode:true,
@@ -37,8 +61,9 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("colleges :>> ", colleges);
-    return NextResponse.json(colleges);
+    //console.log("colleges exists :>> ", colleges);
+    const collegeExists={colleges,"error":""}
+    return NextResponse.json(collegeExists);
   } catch (error) {
     console.log(error);
   }

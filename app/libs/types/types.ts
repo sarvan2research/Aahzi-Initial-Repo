@@ -22,8 +22,14 @@ type cutoffDetailsList = {
   cutOffMBC: any;
   cutOffSCA: any;
 };
-interface ICollegeTable {
-  data: ICollegeDetails[];
-}
+  interface ICollegeTable {
+    data: ICollegeData[];
+    error: string | null;
+  }
+
+  interface ICollegeData{
+    collegeCode: string;
+    collegeName: string;
+  }
 
 export type { ICollegeDetails, ICollegeTable }

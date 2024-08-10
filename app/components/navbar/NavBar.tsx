@@ -44,7 +44,7 @@ const Navbar = () => {
               href={"/rank-form"}
               className="relative text-xl text-white font-bold tracking-wider hover:text-lime-400 transition-all duration-300 ease-in-out transform hover:scale-105"
             >
-              KYC <br /> 
+              KYC(Know Your College) <br />
               <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-lime-400 to-lime-600 scale-x-0 hover:scale-x-100 transition-transform duration-300 ease-in-out origin-center"></span>
             </Link>
           </div>
@@ -82,7 +82,7 @@ const Navbar = () => {
               href={"/rank-form"}
               className="block text-indigo-600 hover:bg-indigo-100 w-fit p-2 rounded-md transition-colors duration-300 ease-in-out"
             >
-              KYC
+              KYC(Know Your College)
             </Link>
           </div>
         </div>
